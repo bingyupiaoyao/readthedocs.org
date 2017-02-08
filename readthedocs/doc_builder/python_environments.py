@@ -75,9 +75,9 @@ class PythonEnvironment(object):
         :param filename: If specified, add this filename to the path return
         :returns: Path to virtualenv bin or filename in virtualenv bin
         """
-        parts = [self.venv_path(), 'bin']
+        parts = [self.venv_path(), 'Scripts']
         if filename is not None:
-            parts.append(filename)
+            parts.append(filename + '.exe')
         return os.path.join(*parts)
 
 

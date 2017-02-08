@@ -154,11 +154,11 @@ class Symlink(object):
 
             # CNAME to doc root
             symlink = os.path.join(self.CNAME_ROOT, domain.domain)
-            run('ln -nsf {0} {1}'.format(self.project_root, symlink))
+            run('cmd.exe /c mklink /D {0} {1}'.format(symlink, self.project_root))
 
             # Project symlink
             project_cname_symlink = os.path.join(self.PROJECT_CNAME_ROOT, domain.domain)
-            run('ln -nsf %s %s' % (self.project.doc_path, project_cname_symlink))
+            run('cmd.exe /c mklink /D %s %s' % (project_cname_symlink, self.project.doc_path))
 
     def remove_symlink_cname(self, domain):
         """Remove CNAME symlink"""
@@ -195,7 +195,7 @@ class Symlink(object):
                 symlink_dir = os.sep.join(symlink.split(os.path.sep)[:-1])
                 if not os.path.lexists(symlink_dir):
                     os.makedirs(symlink_dir)
-                run('ln -nsf %s %s' % (docs_dir, symlink))
+                run('cmd.exe /c mklink /D %s %s' % (symlink, docs_dir))
 
         # Remove old symlinks
         if os.path.exists(self.subproject_root):
@@ -225,7 +225,7 @@ class Symlink(object):
             self._log(u"Symlinking translation: {0}->{1}".format(language, slug))
             symlink = os.path.join(self.project_root, language)
             docs_dir = os.path.join(self.WEB_ROOT, slug, language)
-            run('ln -nsf {0} {1}'.format(docs_dir, symlink))
+            run('cmd.exe /c mklink /D {0} {1}'.format(symlink, docs_dir))
 
         # Remove old symlinks
         for lang in os.listdir(self.project_root):
@@ -256,7 +256,7 @@ class Symlink(object):
         if version is not None:
             docs_dir = os.path.join(settings.DOCROOT, self.project.slug,
                                     'rtd-builds', version.slug)
-            run('ln -nsf %s/ %s' % (docs_dir, symlink))
+            run('cmd.exe /c mklink /D %s/ %s' % (symlink, docs_dir))
 
     def symlink_versions(self):
         """Symlink project's versions
@@ -276,7 +276,7 @@ class Symlink(object):
             self._log(u"Symlinking Version: %s" % version)
             symlink = os.path.join(version_dir, version.slug)
             docs_dir = os.path.join(settings.DOCROOT, self.project.slug, 'rtd-builds', version.slug)
-            run('ln -nsf {0} {1}'.format(docs_dir, symlink))
+            run('cmd.exe /c mklink /D {0} {1}'.format(symlink, docs_dir))
             versions.add(version.slug)
 
         # Remove old symlinks
