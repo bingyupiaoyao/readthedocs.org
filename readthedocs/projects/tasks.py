@@ -881,25 +881,25 @@ def clear_artifacts(version_pk):
 
 
 def clear_pdf_artifacts(version):
-    run_on_app_servers('rm -rf %s'
+    run_on_app_servers('cmd.exe /c rd /s /q %s'
                        % version.project.get_production_media_path(
                            type_='pdf', version_slug=version.slug))
 
 
 def clear_epub_artifacts(version):
-    run_on_app_servers('rm -rf %s'
+    run_on_app_servers('cmd.exe /c rd /s /q %s'
                        % version.project.get_production_media_path(
                            type_='epub', version_slug=version.slug))
 
 
 def clear_htmlzip_artifacts(version):
-    run_on_app_servers('rm -rf %s'
+    run_on_app_servers('cmd.exe /c rd /s /q %s'
                        % version.project.get_production_media_path(
                            type_='htmlzip', version_slug=version.slug))
 
 
 def clear_html_artifacts(version):
-    run_on_app_servers('rm -rf %s' % version.project.rtd_build_path(version=version.slug))
+    run_on_app_servers('cmd.exe /c rd /s /q %s' % version.project.rtd_build_path(version=version.slug))
 
 
 @task(queue='web')
@@ -912,4 +912,4 @@ def remove_path_from_web(path):
     assert ' ' not in path, "No spaces allowed in path"
 
     # TODO: We need some proper escaping here for the given path.
-    run_on_app_servers('rm -rf {path}'.format(path=path))
+    run_on_app_servers('cmd.exe /c rd /s /q {path}'.format(path=path))

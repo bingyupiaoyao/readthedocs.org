@@ -65,10 +65,14 @@ class BaseSphinx(BaseBuilder):
 
         project = self.project
         # Open file for appending.
+        outfile_path = project.conf_file(self.version.slug)
         try:
-            outfile_path = project.conf_file(self.version.slug)
-            outfile = codecs.open(outfile_path, encoding='utf-8', mode='a')
-        except (ProjectImportError, IOError):
+            infile = codecs.open(outfile_path, encoding='utf-8', mode='r')
+            content = infile.read()
+            content = content.replace('\r\n', '\n')
+            outfile = codecs.open(outfile_path, encoding='utf-8', mode='w')
+            outfile.write(content)
+        except IOError:
             trace = sys.exc_info()[2]
             raise ProjectImportError('Conf file not found'), None, trace
         try:
@@ -76,7 +80,7 @@ class BaseSphinx(BaseBuilder):
             # TODO this should be handled better in the theme
             conf_py_path = os.path.join(os.path.sep,
                                         self.version.get_conf_py_path(),
-                                        '')
+                                        '').replace('\\', '/')
             remote_version = self.version.commit_name
 
             github_user, github_repo = version_utils.get_github_username_repo(
@@ -129,7 +133,7 @@ class BaseSphinx(BaseBuilder):
         # Print the contents of conf.py in order to make the rendered
         # configfile visible in the build logs
         self.run(
-            'cat', os.path.basename(outfile_path),
+            'cmd.exe', '/c', 'type', os.path.basename(outfile_path),
             cwd=os.path.dirname(outfile_path),
         )
 
@@ -137,8 +141,7 @@ class BaseSphinx(BaseBuilder):
         self.clean()
         project = self.project
         build_command = [
-            'python',
-            self.python_env.venv_bin(filename='sphinx-build'),
+            'sphinx-build',
             '-T'
         ]
         if self._force:
@@ -274,8 +277,7 @@ class PdfBuilder(BaseSphinx):
 
         # Default to this so we can return it always.
         self.run(
-            'python',
-            self.python_env.venv_bin(filename='sphinx-build'),
+            'sphinx-build',
             '-b', 'latex',
             '-D', 'language={lang}'.format(lang=self.project.language),
             '-d', '_build/doctrees',
