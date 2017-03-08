@@ -8,7 +8,7 @@ class CommunityDevSettings(CommunityBaseSettings):
 
     """Settings for local development"""
 
-    PRODUCTION_DOMAIN = 'localhost:8000'
+    PRODUCTION_DOMAIN = 'docs.bdpt.net'#'localhost:8000'
     WEBSOCKET_HOST = 'localhost:8088'
 
     @property
@@ -27,7 +27,7 @@ class CommunityDevSettings(CommunityBaseSettings):
 
     SLUMBER_USERNAME = 'test'
     SLUMBER_PASSWORD = 'test'  # noqa: ignore dodgy check
-    SLUMBER_API_HOST = 'http://localhost:8000'
+    SLUMBER_API_HOST = 'http://docs.bdpt.net' #'http://localhost:8000'
 
     BROKER_URL = 'redis://localhost:6379/0'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

@@ -136,10 +136,10 @@ class ResolverBase(object):
             if version_slug is None:
                 version_slug = project.get_default_version()
             private = self._get_private(project, version_slug)
-
-        return '{protocol}://{domain}{path}'.format(
-            protocol=protocol,
-            domain=self.resolve_domain(project, private=private),
+        #{protocol}://{domain}
+        return '{path}'.format(
+            #protocol=protocol,
+            #domain=self.resolve_domain(project, private=private),
             path=self.resolve_path(project, filename=filename, private=private,
                                    **kwargs),
         )
