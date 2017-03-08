@@ -271,7 +271,7 @@ class UpdateDocsTask(Task):
             })
         else:
             env.update({
-                'BIN_PATH': os.path.join(self.project.doc_path, 'envs', self.version.slug, 'bin')
+                'BIN_PATH': os.path.join(self.project.doc_path, 'envs', self.version.slug, 'Scripts')
             })
 
         return env

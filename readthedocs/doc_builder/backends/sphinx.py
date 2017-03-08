@@ -239,7 +239,7 @@ class EpubBuilder(BaseSphinx):
         if from_globs:
             from_file = from_globs[0]
             to_file = os.path.join(self.target, "%s.epub" % self.project.slug)
-            self.run('mv', '-f', from_file, to_file)
+            self.run('cmd.exe','/c','move', '/Y', from_file, to_file)
 
 
 class LatexBuildCommand(BuildCommand):
@@ -294,12 +294,12 @@ class PdfBuilder(BaseSphinx):
 
         # Run LaTeX -> PDF conversions
         pdflatex_cmds = [
-            ['pdflatex',
+            ['cmd.exe','/c','pdflatex',
                 '-interaction=nonstopmode',
                 tex_file]
             for tex_file in tex_files]
         makeindex_cmds = [
-            ['makeindex',
+            ['cmd.exe','/c','makeindex',
                 '-s',
                 'python.ist',
                 '{0}.idx'.format(
@@ -351,4 +351,4 @@ class PdfBuilder(BaseSphinx):
                 from_file = None
         if from_file:
             to_file = os.path.join(self.target, "%s.pdf" % self.project.slug)
-            self.run('mv', '-f', from_file, to_file)
+            self.run('cmd.exe','/c','move', '/Y', from_file, to_file)

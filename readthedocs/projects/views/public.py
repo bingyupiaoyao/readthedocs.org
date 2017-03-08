@@ -176,6 +176,7 @@ def project_download_media(request, project_slug, type_, version_slug):
     if privacy_level == 'public' or settings.DEBUG:
         path = os.path.join(settings.MEDIA_URL, type_, project_slug, version_slug,
                             '%s.%s' % (project_slug, type_.replace('htmlzip', 'zip')))
+        path = path.replace('\\', '/')
         return HttpResponseRedirect(path)
     else:
         # Get relative media path

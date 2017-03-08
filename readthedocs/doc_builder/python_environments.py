@@ -92,7 +92,9 @@ class Virtualenv(PythonEnvironment):
             site_packages = '--system-site-packages'
         env_path = self.venv_path()
         self.build_env.run(
-            self.config.python_interpreter,
+            'cmd.exe',
+            '/c',
+            'python',#'#self.config.python_interpreter,
             '-mvirtualenv',
             site_packages,
             '--no-download',
