@@ -96,6 +96,7 @@ class BaseSphinx(BaseBuilder):
             rtd_ctx = {
                 'current_version': self.version.verbose_name,
                 'project': project,
+                'project_name_low': project.name.lower(),
                 'settings': settings,
                 'static_path': SPHINX_STATIC_DIR,
                 'template_path': SPHINX_TEMPLATE_DIR,
@@ -292,9 +293,9 @@ class PdfBuilder(BaseSphinx):
         if not tex_files:
             raise BuildEnvironmentError('No TeX files were found')
 
-        # Run LaTeX -> PDF conversions
+        # Run LaTeX -> PDF conversions pdflatex
         pdflatex_cmds = [
-            ['cmd.exe','/c','pdflatex',
+            ['cmd.exe','/c','xelatex',
                 '-interaction=nonstopmode',
                 tex_file]
             for tex_file in tex_files]

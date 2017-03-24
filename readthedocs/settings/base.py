@@ -33,7 +33,7 @@ class CommunityBaseSettings(Settings):
     LOG_DEBUG = False
 
     # Domains and URLs
-    PRODUCTION_DOMAIN = 'readthedocs.org'
+    PRODUCTION_DOMAIN = 'bdpt.net' #'readthedocs.org'
     PUBLIC_DOMAIN = None
     USE_SUBDOMAIN = False
     PUBLIC_API_URL = 'https://{0}'.format(PRODUCTION_DOMAIN)
@@ -49,7 +49,7 @@ class CommunityBaseSettings(Settings):
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
     # Cookies
-    SESSION_COOKIE_DOMAIN = 'readthedocs.org'
+    SESSION_COOKIE_DOMAIN = 'bdpt.net' #'readthedocs.org'
     SESSION_COOKIE_HTTPONLY = True
     CSRF_COOKIE_HTTPONLY = True
 
