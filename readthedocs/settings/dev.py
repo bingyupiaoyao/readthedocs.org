@@ -8,8 +8,8 @@ class CommunityDevSettings(CommunityBaseSettings):
 
     """Settings for local development"""
 
-    PRODUCTION_DOMAIN = 'docs.bdpt.net' #'localhost:8000'
-    WEBSOCKET_HOST = 'localhost:8088'
+    PRODUCTION_DOMAIN = 'docs.bdpt.net'#'localhost:8000'
+    #WEBSOCKET_HOST = 'localhost:8088'
 
     @property
     def DATABASES(self):  # noqa
